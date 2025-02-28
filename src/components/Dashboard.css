@@ -1,0 +1,102 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent page scrolling */
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+  display: flex;
+  height: 95vh; /* Full screen */
+  width: 100%;
+  padding: 20px;
+  gap: 20px;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* Code Editor Section */
+.editor-section {
+  flex: 0.35;
+  background: #ecf0f1;
+  padding: 20px;
+  border-radius: 15px;
+  color: #2c3e50;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 80vh;
+}
+
+/* Review Section */
+.review-section {
+  flex: 0.65;
+  background: #ecf0f1;
+  padding: 20px;
+  border-radius: 15px;
+  color: #000000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 85vh;
+  overflow-y: auto;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 1.3rem;
+}
+
+/* Review Output Box */
+.review-box {
+  height: 90vh;
+  padding: 15px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+/* Button Styling */
+.review-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 2.3rem;
+  font-size: 18px;
+  font-weight: bold;
+  background: #1abc9c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.review-btn:hover {
+  background: #16a085;
+  transform: scale(1.05);
+}
+
+/* Mobile Responsive Design */
+/* @media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    height: 100vh;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .editor-section,
+  .review-section {
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .review-section {
+    display: none; Hide until button click
+  }
+} */

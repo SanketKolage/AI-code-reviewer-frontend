@@ -1,0 +1,47 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #34495e;
+  padding: 15px 30px;
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.user-dropdown {
+  position: relative;
+}
+
+.user-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  width: 1rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 10rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  list-style: none;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+  width: 20%;
+  text-align: left;
+}
