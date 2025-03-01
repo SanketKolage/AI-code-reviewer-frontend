@@ -20,9 +20,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/auth/register", formData);
+      await axios.post(`https://ai-code-reviewer-backend-myv3.onrender.com/api/auth/register`, formData);
       alert("Registration successful!");
-      navigate("/login");
+      navigate("/login");zz
     } catch (error) {
       alert("Error registering user");
     }
