@@ -15,7 +15,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`https://ai-code-reviewer-backend-myv3.onrender.com/api/auth/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
         email: formData.email,
         password: formData.password
       });

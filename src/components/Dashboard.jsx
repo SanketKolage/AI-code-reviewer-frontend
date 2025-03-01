@@ -65,7 +65,7 @@ const Dashboard = () => {
   // Fetch AI-based code review
   const reviewCode = useCallback(async () => {
     try {
-      const response = await axios.post("http://localhost:3000/ai/get-review", { code, language });
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/ai/get-review`, { code, language });
       setReview(response.data);
     } catch (error) {
       console.error("Error:", error);
