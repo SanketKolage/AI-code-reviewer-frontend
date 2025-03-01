@@ -18,6 +18,9 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/Dashboard.css"; // Keep styles separate
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+
 const Dashboard = () => {
   const [code, setCode] = useState(`function sum() { return 1 + 1; }`);
   const [review, setReview] = useState("");
@@ -65,7 +68,7 @@ const Dashboard = () => {
   // Fetch AI-based code review
   const reviewCode = useCallback(async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/ai/get-review`, { code, language });
+      const response = await axios.post(`${API_BASE_URL}/ai/get-review`, { code, language });
       setReview(response.data);
     } catch (error) {
       console.error("Error:", error);

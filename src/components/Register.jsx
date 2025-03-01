@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+console.log("API URL:", API_BASE_URL);
+
+
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -20,7 +24,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, formData);
+      await axios.post(`${API_BASE_URL}/api/auth/register`, formData);
       alert("Registration successful!");
       navigate("/login");
     } catch (error) {
