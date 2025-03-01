@@ -1,28 +1,22 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import Prism from "prismjs";
-import "prismjs/components/prism-core";
-import "prismjs/components/prism-markup";
-import "prismjs/components/prism-css";
-import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-java";
 import "prismjs/components/prism-c";
 import "prismjs/components/prism-cpp";
-import "prismjs/components/prism-php";
-
 import axios from "axios";
 import Editor from "react-simple-code-editor";
 import Markdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../components/Dashboard.css"; // Keep styles separate
+import { motion } from "framer-motion"; // For animations
+import "../components/Dashboard.css"; // Keep styles in CSS
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
-
 const Dashboard = () => {
-  const [code, setCode] = useState(`function sum() { return 1 + 1; }`);
+  const [code, setCode] = useState(``);
   const [review, setReview] = useState("");
   const [language, setLanguage] = useState("javascript");
   const reviewRef = useRef(null);
@@ -32,7 +26,7 @@ const Dashboard = () => {
   const [showReview, setShowReview] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  // Handle screen resizing for mobile detection
+  // Handle screen resizing
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
@@ -41,7 +35,7 @@ const Dashboard = () => {
 
   // Toggle dropdown for user profile
   const toggleDropdown = (e) => {
-    e.stopPropagation(); // Prevent immediate closure
+    e.stopPropagation();
     setShowDropdown((prev) => !prev);
   };
 
@@ -52,15 +46,14 @@ const Dashboard = () => {
     return () => document.removeEventListener("click", closeDropdown);
   }, []);
 
-  // Handle code review button click
+  // Handle Review Click
   const handleReviewClick = () => {
     reviewCode();
-    if (isMobile) {
-      setShowReview(true); // Show review section in mobile view
-    }
+    setShowReview(true);
+    setTimeout(() => reviewRef.current?.scrollIntoView({ behavior: "smooth" }), 500);
   };
 
-  // Ensure PrismJS syntax highlighting updates
+  // Syntax highlighting update
   useEffect(() => {
     Prism.highlightAll();
   }, [code, language]);
@@ -81,30 +74,28 @@ const Dashboard = () => {
       <nav className="navbar navbar-light bg-light px-3 header">
         <span className="navbar-brand">Code Reviewer</span>
         <div className="user-dropdown">
-          <button
-            className="btn btn-light dropdown-toggle"
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleDropdown(e);
-            }}
-          >
-            {username} ⬇️
+          <button className="btn btn-light dropdown-toggle" onClick={toggleDropdown}>
+          <>Hello ,  </>  {username} 
           </button>
-          {showDropdown && (
-            <ul className="dropdown-menu show dropdown-menu-end">
-              <li>
-                <button
-                  className="dropdown-item text-danger"
-                  onClick={() => {
-                    localStorage.removeItem("username");
-                    navigate("/login"); // Redirect to login
-                  }}
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
-          )}
+
+          <motion.ul
+            className={`dropdown-menu dropdown-menu-end ${showDropdown ? "show" : ""}`}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: showDropdown ? 1 : 0, y: showDropdown ? 0 : -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <li>
+              <button
+                className="dropdown-item btn-danger logout-btn"
+                onClick={() => {
+                  localStorage.removeItem("username");
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </button>
+            </li>
+          </motion.ul>
         </div>
       </nav>
 
@@ -113,36 +104,50 @@ const Dashboard = () => {
         {/* Code Editor Section */}
         <div className="editor-section">
           <h3 className="section-title">Code Editor</h3>
-          
+
           <Editor
+          placeholder="Write your code here..."
             value={code}
             onValueChange={setCode}
-            highlight={(code) => {
-              if (!Prism.languages[language]) {
-                console.warn(`PrismJS: Language "${language}" not loaded.`);
-                return code; // Prevent crash if language is missing
-              }
-              return Prism.highlight(code, Prism.languages[language], language);
-            }}
-            padding={10}
+            highlight={(code) =>
+              Prism.languages[language]
+                ? Prism.highlight(code, Prism.languages[language], language)
+                : code
+            }
+            padding={12}
             style={{
               fontFamily: "Fira Code, monospace",
               fontSize: 16,
               height: "85%",
               width: "100%",
+              borderRadius: "10px",
+              backgroundColor: "#282c34",
+              color: "#ffffff",
             }}
           />
-          <button className="review-btn" onClick={handleReviewClick}>
+
+          <motion.button
+            className="review-btn"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleReviewClick}
+          >
             Review
-          </button>
+          </motion.button>
         </div>
 
-        {/* Review Output Section (Hidden in Mobile until Clicked) */}
-        {(!isMobile || showReview) && (
-          <div className="review-section" ref={reviewRef}>
+        {/* Review Output Section */}
+        {showReview && (
+          <motion.div
+            className="review-section"
+            ref={reviewRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h3 className="section-title">Review Output</h3>
             <Markdown>{review}</Markdown>
-          </div>
+          </motion.div>
         )}
       </main>
     </>
