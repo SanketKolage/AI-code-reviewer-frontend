@@ -48,6 +48,7 @@ const Dashboard = () => {
 
   // Handle Review Click
   const handleReviewClick = () => {
+        if(!code) return;
     reviewCode();
     setShowReview(true);
     setTimeout(() => reviewRef.current?.scrollIntoView({ behavior: "smooth" }), 500);
