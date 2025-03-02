@@ -12,7 +12,7 @@ body {
 /* Dashboard Layout */
 .dashboard-container {
   display: flex;
-  height: 95vh; /* Full screen */
+  height: 92vh; /* Full screen */
   width: 100%;
   padding: 20px;
   gap: 20px;
