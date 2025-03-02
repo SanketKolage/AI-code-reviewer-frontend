@@ -25,12 +25,15 @@ const Login = () => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("username", response.data.username);
+                toast.success("Login successful! Redirecting...");
+
         navigate("/dashboard");
       } else {
-        console.error("Login failed: No token received");
+        toast.error("Login failed: No token received");
+
       }
     } catch (error) {
-      console.error("Login failed:", error);
+      toast.error("Invalid credentials. Please try again.");
     }
   };
 
