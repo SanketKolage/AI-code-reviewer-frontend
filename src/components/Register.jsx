@@ -25,10 +25,10 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post(`${API_BASE_URL}/api/auth/register`, formData);
-      alert("Registration successful!");
+      toast.success("Registration successful! Redirecting...");
       navigate("/login");
     } catch (error) {
-      alert("Error registering user");
+      toast.error("Error registering user");
     }
   };
 
